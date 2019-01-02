@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import DeckList from './components/DeckList'
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default class App extends Component {
+export default class DeckList extends Component {
   render() {
     return (
-	  <View style={styles.container}>
-		<DeckList/>
+		<View style={styles.container}>
+        <TextInput>Hey there!</TextInput>
       </View>
     );
   }
@@ -20,3 +19,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
