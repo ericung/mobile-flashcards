@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\components"
+    "\\components",
+    "\\utils"
   ],
   "SelectedNode": "\\components\\DeckList.js",
   "PreviewInSolutionExplorer": false
