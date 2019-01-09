@@ -1,44 +1,46 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { saveDeckTitle, getDecks, getDeck } from '../utils/api';
+import { getDecks } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckList extends Component {
 	state = {
-		deck: "hey"
-	}
-	getDeck(key) {
-		return AsyncStorage.getItem(asyncStorageDeck, (err, result) => {
-			var res = JSON.parse(result);
-			res = Object.values(res);
-			this.setState({
-				deck: res
-			});
-		});
+		decks: {}
 	}
 	componentDidMount() {
-		saveDeckTitle("hey","there");
-		this.getDeck("hey");
+		var data = getDecks();
+		var dataValues = Object.values(data);
+		this.setState({
+			decks: dataValues
+		});
 	}
   render() {
-    return (
-			<View style={styles.container}>
-				<TextInput>{this.state.deck}</TextInput>
-        <TextInput>udacicards!</TextInput>
-        <TextInput>udacicards!</TextInput>
-      </View>
+		return (
+			<View style={styles.contentContainer} >
+				<FlatList contentContainerStyle={styles.contentContainer} data = { this.state.decks }
+					renderItem={(entry) => {
+						return (
+							<TouchableOpacity onPress={() => { }}>
+								<View style={styles.alignItems} >
+									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
+								</View>
+							</TouchableOpacity>
+						)
+				}} />
+			</View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	contentContainer: {
+		backgroundColor: '#fff',
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	}
 });
 
