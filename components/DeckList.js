@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
 import { getDecks } from '../utils/api';
@@ -17,15 +17,19 @@ export default class DeckList extends Component {
 			decks: dataValues
 		});
 	}
+	onClick() {
+		return;
+	}
   render() {
 		return (
 			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data = { this.state.decks }
-					renderItem={(entry) => {
+				<FlatList contentContainerStyle={styles.contentContainer} data={ this.state.decks }
+					renderItem={entry => {
 						return (
-							<TouchableOpacity onPress={() => { }}>
-								<View style={styles.alignItems} >
+							<TouchableOpacity onPress={entry => this.onClick()}>
+								<View>
 									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
+									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>
 								</View>
 							</TouchableOpacity>
 						)
@@ -43,4 +47,3 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	}
 });
-
