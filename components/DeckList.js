@@ -18,7 +18,7 @@ export default class DeckList extends Component {
 		});
 	}
 	onClick() {
-		return;
+		return;	
 	}
   render() {
 		return (
