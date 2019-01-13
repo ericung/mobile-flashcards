@@ -7,31 +7,36 @@ import { getDecks } from '../utils/api';
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class QuizView extends Component {
-	state = {
-		decks: {}
-	}
-	componentDidMount() {
-		var data = getDecks();
-		var dataValues = Object.values(data);
-		this.setState({
-			decks: dataValues
-		});
-	}
-	onClick() {
-		return;
-	}
 	render() {
+		// console.log(this.props.navigation.state.params.deck);
 		return (
 			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+				<FlatList contentContainerStyle={styles.contentContainer} data={ this.props.navigation.state.params.deck.item.questions }
 					renderItem={entry => {
+						console.log( entry.item.question );
 						return (
-							<TouchableOpacity onPress={entry => this.onClick()}>
-								<View>
-									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
-									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>
-								</View>
-							</TouchableOpacity>
+							<View>
+								<TouchableOpacity onPress={entry => this.onClick()}>
+									<View>
+										<Text style={{ color: 'black' }}>{entry.item.question}</Text>
+									</View>
+								</TouchableOpacity>
+								<TouchableOpacity onPress={entry => this.onClick()}>
+									<View>
+										<Text style={{ color: 'black' }}>Answer</Text>
+									</View>
+								</TouchableOpacity>
+								<TouchableOpacity onPress={entry => this.onClick()}>
+									<View>
+										<Text style={{ color: 'black' }}>Correct</Text>
+									</View>
+								</TouchableOpacity>
+								<TouchableOpacity onPress={entry => this.onClick()}>
+									<View>
+										<Text style={{ color: 'black' }}>Incorrect</Text>
+									</View>
+								</TouchableOpacity>
+							</View>
 						)
 					}} />
 			</View>
