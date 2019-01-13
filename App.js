@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import DeckList from './components/DeckList';
+import DeckView from './components/DeckView';
+import CardView from './components/CardView';
+import NewDeck from './components/NewQuestion';
+import NewQuestion from './components/NewQuestion';
+import QuizView from './components/QuizView';
 
 export default class App extends Component {
   render() {
@@ -14,6 +19,21 @@ export default class App extends Component {
 const Stack = createStackNavigator({
 	Home: {
 		screen: DeckList
+	},
+	Deck: {
+		screen: DeckView
+	},
+	Card: {
+		screen: CardView
+	},
+	NewDeck: {
+		screen: NewDeck
+	},
+	NewQuestion: {
+		screen: NewQuestion
+	},
+	Quiz: {
+		screen: QuizView
 	}
 });
 

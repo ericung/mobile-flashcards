@@ -21,19 +21,29 @@ export default class DeckView extends Component {
 		return;
 	}
 	render() {
+		console.log(this.props.navigation.state.params.deck.item.title);
 		return (
 			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
-					renderItem={entry => {
-						return (
-							<TouchableOpacity onPress={entry => this.onClick()}>
-								<View>
-									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
-									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>
-								</View>
-							</TouchableOpacity>
-						)
-					}} />
+				<TouchableOpacity onPress={entry => this.onClick()} >
+					<View>
+						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.title}</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={entry => this.onClick()} >
+					<View>
+						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.questions.length} Cards</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={entry => this.onClick()} >
+					<View>
+						<Text style={{ color: 'black' }}>Add Card</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={entry => this.onClick()} >
+					<View>
+						<Text style={{ color: 'black' }}>Start Quiz</Text>
+					</View>
+				</TouchableOpacity>
 			</View>
 		);
 	}

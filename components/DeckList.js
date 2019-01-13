@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'r
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
 import { getDecks } from '../utils/api';
+import { DeckView } from './DeckView';
 
 export const asyncStorageDeck = "flashcards:decks";
 
@@ -17,19 +18,16 @@ export default class DeckList extends Component {
 			decks: dataValues
 		});
 	}
-	onClick() {
-		return;	
-	}
   render() {
 		return (
-			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data={ this.state.decks }
-					renderItem={entry => {
+			<View style={ styles.contentContainer } >
+				<FlatList contentContainerStyle={ styles.contentContainer } data={ this.state.decks }
+					renderItem={entry => { 
 						return (
-							<TouchableOpacity onPress={entry => this.onClick()}>
+							<TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: entry })} key={ entry }>
 								<View>
 									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
-									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>
+									<Text style={{ color: 'black' }}>{entry.item.questions.length} Cards</Text>
 								</View>
 							</TouchableOpacity>
 						)

@@ -2,34 +2,22 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { getDecks } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class CardView extends Component {
-	state = {
-		decks: {}
-	}
-	componentDidMount() {
-		var data = getDecks();
-		var dataValues = Object.values(data);
-		this.setState({
-			decks: dataValues
-		});
-	}
 	onClick() {
 		return;
 	}
 	render() {
 		return (
 			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+				<FlatList contentContainerStyle={styles.contentContainer} data={this.props.navigation.state.params.deck.item.questions}
 					renderItem={entry => {
 						return (
-							<TouchableOpacity onPress={entry => this.onClick()}>
+							<TouchableOpacity onPress={entry => this.onClick()} key={ entry.index }>
 								<View>
-									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
-									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>
+									<Text style={{ color: 'black' }}>{entry.item.question}</Text>
 								</View>
 							</TouchableOpacity>
 						)
