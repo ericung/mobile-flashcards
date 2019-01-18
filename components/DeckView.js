@@ -21,6 +21,7 @@ export default class DeckView extends Component {
 		return;
 	}
 	render() {
+		console.log(this.props.navigation.state.params.deck.item.title);
 		return (
 			<View style={styles.contentContainer} >
 				<TouchableOpacity onPress={entry => this.onClick()} >
@@ -38,7 +39,7 @@ export default class DeckView extends Component {
 						<Text style={{ color: 'black' }}>Add Card</Text>
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck })}>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.index + 1 })}>
 					<View>
 						<Text style={{ color: 'black' }}>Start Quiz</Text>
 					</View>

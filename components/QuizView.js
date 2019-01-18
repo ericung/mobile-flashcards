@@ -9,24 +9,30 @@ const AnswerType = "AnswerType";
 
 export default class QuizView extends Component {
 	state = {
-		display: QuestionType
+		display: QuestionType,
+		value: true
 	}
 	switchDisplay() {
 		if (this.state.display === QuestionType) {
 			this.setState({
 				display: AnswerType
-			})
+			});
 		} else {
 			this.setState({
 				display: QuestionType
-			})
+			});
 		}
 	}
 	answerCorrect() {
-
+		if (this.props.navigation.state.params.deck.item.questions[0].value === true) {
+			this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.index + 1 })
+		}
 		return;	
 	}
 	answerIncorrect() {
+		this.setState({
+			value: false
+		})
 		return;
 	}
 	render() {
