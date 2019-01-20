@@ -24,26 +24,32 @@ export default class QuizView extends Component {
 		}
 	}
 	answerCorrect() {
-		if (this.props.navigation.state.params.deck.item.questions[0].value === true) {
-			this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.index + 1 })
+		var index = this.props.navigation.state.params.deck.index;
+		var entry = this.props.navigation.state.params.deck.item.questions[index];
+		if (this.props.navigation.state.params.deck.item.questions[index].value === true) {
+			this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.deck.index + 1, yes: this.props.navigation.state.params.deck.yes + 1, no: this.props.navigation.state.params.deck.no });
 		}
 		return;	
 	}
 	answerIncorrect() {
-		this.setState({
-			value: false
-		})
-		return;
+		var index = this.props.navigation.state.params.deck.index;
+		var entry = this.props.navigation.state.params.deck.item.questions[index];
+		if (this.props.navigation.state.params.deck.item.questions[index].value === true) {
+			this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.deck.index + 1, yes: this.props.navigation.state.params.deck.yes, no: this.props.navigation.state.params.deck.no + 1 });
+		}
+		return;	
 	}
 	render() {
-		var entry = this.props.navigation.state.params.deck.item.questions[0];
+		var index = this.props.navigation.state.params.deck.item.index;
+		var entry = this.props.navigation.state.params.deck.item.questions[index];
+		console.log(this.props.navigation.state.params.deck.item)
 		return (
 			<View style={styles.contentContainer}>
 				<View>
 					<View>
 						{
 							(this.state.display === QuestionType) ?
-								<Text style={{ color: 'black' }}>{ entry.question }</Text>
+								<Text style={{ color: 'black' }}>Hello</Text>
 								:
 								<Text style={{ color: 'black' }}>{ entry.answer }</Text>
 						}
