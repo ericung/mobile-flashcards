@@ -20,7 +20,12 @@ export default class DeckView extends Component {
 	}
 	render() {
 		return (
-			<View style={styles.contentContainer} >
+      <View style={styles.contentContainer} >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewDeck')}>
+          <View>
+            <Text style={{ color: 'black' }}>New Deck</Text>
+          </View>
+        </TouchableOpacity>
 				<TouchableOpacity onPress={entry => this.onClick()}>
 					<View>
 						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.title}</Text>

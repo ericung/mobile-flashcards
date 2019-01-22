@@ -2,6 +2,8 @@ import { AsyncStorage } from 'react-native';
 
 export const asyncStorageDeck = "flashcards:decks";
 
+export const NOTIFICATION_KEY = 'notification:mobile-flashcards';
+
 let data = {
   React: {
     title: 'React',
@@ -28,7 +30,7 @@ let data = {
       }
     ]
   }
-}
+};
 
 export function initData() {
   AsyncStorage.setItem(asyncStorageDeck, JSON.stringify(data));
@@ -50,4 +52,15 @@ export function addCardToDeck(title, card) {
 
     AsyncStorage.merge(asyncStorageDeck, JSON.stringify({ [deckName]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) } }));
   });
+}
+
+export function buildNotification() {
+  return {
+    title: 'Flashcards',
+    body: "Questions today."
+  };
+}
+
+export function setNotification() {
+  return;
 }

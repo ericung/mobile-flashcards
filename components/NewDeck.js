@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
 import { getDecks } from '../utils/api';
@@ -23,17 +23,13 @@ export default class NewDeck extends Component {
 	render() {
 		return (
 			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
-					renderItem={entry => {
-						return (
-							<TouchableOpacity onPress={entry => this.onClick()}>
-								<View>
-									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
-									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>
-								</View>
-							</TouchableOpacity>
-						)
-					}} />
+        <Text>What is the title of your new deck?</Text>
+        <TextInput placeholder="Deck Title" />
+        <TouchableOpacity onPress={() => this.onClick()}>
+          <View>
+            <Text style={{ color: 'black' }}>Submit</Text>
+          </View>
+        </TouchableOpacity>
 			</View>
 		);
 	}
@@ -44,6 +40,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	}
 });
