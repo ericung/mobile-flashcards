@@ -40,9 +40,8 @@ export function getDeck(key) {
 
 export function saveDeckTitle(title) {
 	data[title] = { title: title, questions: [] };
-	AsyncStorage.setItem(asyncStorageDeck, JSON.stringify(data));
 }
 
 export function addCardToDeck(title, card) {
-	AsyncStorage.mergeItem(asyncStorageCard, JSON.stringify({title}));
+	data[title].questions.push(card);
 }
