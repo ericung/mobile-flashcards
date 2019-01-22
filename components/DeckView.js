@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { getDecks } from '../utils/api';
+import { initData, getDecks } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
@@ -10,7 +10,8 @@ export default class DeckView extends Component {
 	state = {
 		decks: {}
 	}
-	componentDidMount() {
+  componentDidMount() {
+    initData();
 		var data = getDecks();
 		var dataValues = Object.values(data);
 		this.setState({
@@ -50,6 +51,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	}
 });
