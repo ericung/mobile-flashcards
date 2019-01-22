@@ -10,7 +10,11 @@ const AnswerType = "AnswerType";
 export default class QuizView extends Component {
 	state = {
 		display: QuestionType,
-		value: true
+		value: true,
+		deck: this.props.navigation.state.params.deck,
+		index: this.props.navigation.state.params.deck.index,
+		correct: this.props.navigation.state.params.correct,
+		incorrect: this.props.navigation.state.params.incorrect
 	}
 	switchDisplay() {
 		if (this.state.display === QuestionType) {
@@ -26,34 +30,45 @@ export default class QuizView extends Component {
 	answerCorrect() {
 		var index = this.props.navigation.state.params.deck.index;
 		var entry = this.props.navigation.state.params.deck.item.questions[index];
-		console.log(this.props.navigation.state.params.correct);
+
 		if (entry.value === true) {
-			this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.deck.index + 1, correct: this.props.navigation.state.params.correct + 1, incorrect: this.props.navigation.state.params.incorrect });
+			this.setState({
+				index: this.state.index + 1,
+				correct: this.state.correct + 1,
+				incorrect: this.state.incorrect
+			});
 		} else {
-			this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.deck.index + 1, correct: this.props.navigation.state.params.correct, incorrect: this.props.navigation.state.params.incorrect + 1});
+			this.setState({
+				index: this.state.index + 1,
+				correct: this.state.correct,
+				incorrect: this.state.incorrect + 1
+			});
 		}
 		return;	
 	}
 	answerIncorrect() {
 		var index = this.props.navigation.state.params.deck.index;
 		var entry = this.props.navigation.state.params.deck.item.questions[index];
-		if (entry.value === true) {
-			if (entry.value === true) {
-				if (entry.value === false) {
-					this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.deck.index + 1, correct: this.props.navigation.state.params.correct + 1, incorrect: this.props.navigation.state.params.incorrect });
-				} else {
-					this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: this.props.navigation.state.params.deck.index + 1, correct: this.props.navigation.state.params.correct, incorrect: this.props.navigation.state.params.incorrect + 1 });
-				}
-				return;
-			}
+		if (entry.value === false) {
+			this.setState({
+				index: this.state.index + 1,
+				correct: this.state.correct + 1,
+				incorrect: this.state.incorrect
+			});
+		} else {
+			this.setState({
+				index: this.state.index + 1,
+				correct: this.state.correct,
+				incorrect: this.state.incorrect + 1
+			});
 		}
+
+		return;
 	}
 	render() {
-		var index = this.props.navigation.state.params.deck.index;
-		var entry = this.props.navigation.state.params.deck.item.questions[index];
-		{
-			console.log(entry);
-		}
+		var index = this.state.index;
+		var entry = this.state.deck.item.questions[index];
+		console.log(entry);
 		return (
 			<View style={styles.contentContainer}>
 				<View>
@@ -62,7 +77,7 @@ export default class QuizView extends Component {
 							(this.state.display === QuestionType) ?
 								<Text style={{ color: 'black' }}>{ entry.question }</Text>
 								:
-								<Text style={{ color: 'black' }}>{ entry.answerCorrect }</Text>
+								<Text style={{ color: 'black' }}>{ entry.answer }</Text>
 						}
 					</View>
 					<TouchableOpacity onPress={entry => this.switchDisplay()}>
