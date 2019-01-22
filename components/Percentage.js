@@ -8,7 +8,6 @@ export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckView extends Component {
 	state = {
-		decks: {}
 	}
 	componentDidMount() {
 		var data = getDecks();
@@ -21,26 +20,18 @@ export default class DeckView extends Component {
 		return;
 	}
 	render() {
+		var correct = this.props.navigation.state.params.correct;
+		var incorrect = this.props.navigation.state.params.incorrect;
 		return (
 			<View style={styles.contentContainer} >
 				<TouchableOpacity onPress={entry => this.onClick()}>
 					<View>
-						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.title}</Text>
+						<Text style={{ color: 'black' }}>{(correct / (correct + incorrect))*100}%</Text>
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={entry => this.onClick()}>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
 					<View>
-						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.questions.length} Cards</Text>
-					</View>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 })}>
-					<View>
-						<Text style={{ color: 'black' }}>Add Card</Text>
-					</View>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 })}>
-					<View>
-						<Text style={{ color: 'black' }}>Start Quiz</Text>
+						<Text style={{ color: 'black' }}>Home</Text>
 					</View>
 				</TouchableOpacity>
 			</View>

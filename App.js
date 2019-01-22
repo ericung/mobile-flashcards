@@ -7,6 +7,7 @@ import CardView from './components/CardView';
 import NewDeck from './components/NewQuestion';
 import NewQuestion from './components/NewQuestion';
 import QuizView from './components/QuizView';
+import Percentage from './components/Percentage';
 
 export default class App extends Component {
   render() {
@@ -34,6 +35,9 @@ const Stack = createStackNavigator({
 	},
 	Quiz: {
 		screen: QuizView
+	},
+	Percentage: {
+		screen: Percentage
 	}
 });
 

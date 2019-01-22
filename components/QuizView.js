@@ -12,7 +12,7 @@ export default class QuizView extends Component {
 		display: QuestionType,
 		value: true,
 		deck: this.props.navigation.state.params.deck,
-		index: this.props.navigation.state.params.deck.index,
+		index: 0,
 		correct: this.props.navigation.state.params.correct,
 		incorrect: this.props.navigation.state.params.incorrect
 	}
@@ -28,9 +28,9 @@ export default class QuizView extends Component {
 		}
 	}
 	answerCorrect() {
-		var index = this.props.navigation.state.params.deck.index;
-		var entry = this.props.navigation.state.params.deck.item.questions[index];
-
+		var index = this.state.index;
+		console.log(index);
+		var entry = this.state.deck.item.questions[index];
 		if (entry.value === true) {
 			this.setState({
 				index: this.state.index + 1,
@@ -47,8 +47,26 @@ export default class QuizView extends Component {
 		return;	
 	}
 	answerIncorrect() {
-		var index = this.props.navigation.state.params.deck.index;
-		var entry = this.props.navigation.state.params.deck.item.questions[index];
+		var index = this.state.index;
+		var entry = this.state.deck.item.questions[index];
+		if (entry.value === true) {
+			this.setState({
+				index: this.state.index + 1,
+				correct: this.state.correct + 1,
+				incorrect: this.state.incorrect
+			});
+		} else {
+			this.setState({
+				index: this.state.index + 1,
+				correct: this.state.correct,
+				incorrect: this.state.incorrect + 1
+			});
+		}
+		return;	
+	}
+	answerIncorrect() {
+		var index = this.state.index;
+		var entry = this.state.deck.item.questions[index];
 		if (entry.value === false) {
 			this.setState({
 				index: this.state.index + 1,
@@ -67,17 +85,22 @@ export default class QuizView extends Component {
 	}
 	render() {
 		var index = this.state.index;
-		var entry = this.state.deck.item.questions[index];
-		console.log(entry);
+		var entry;
+		if (index < (this.state.deck.item.questions.length)) {
+			entry = this.state.deck.item.questions[index];
+		} else {
+			this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect });
+			entry = this.state.deck.item.questions[this.state.deck.item.questions.length - 1];
+		}
 		return (
 			<View style={styles.contentContainer}>
 				<View>
 					<View>
 						{
 							(this.state.display === QuestionType) ?
-								<Text style={{ color: 'black' }}>{ entry.question }</Text>
+								<Text style={{ color: 'black' }}>{entry.question}</Text>
 								:
-								<Text style={{ color: 'black' }}>{ entry.answer }</Text>
+								<Text style={{ color: 'black' }}>{entry.answer}</Text>
 						}
 					</View>
 					<TouchableOpacity onPress={entry => this.switchDisplay()}>
