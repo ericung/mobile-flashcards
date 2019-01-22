@@ -11,7 +11,6 @@ export default class DeckView extends Component {
 		decks: {}
 	}
   componentDidMount() {
-    initData();
 		var data = getDecks();
 		var dataValues = Object.values(data);
 		this.setState({

@@ -1,8 +1,9 @@
 import { AsyncStorage } from 'react-native';
+import { Notifications, Permissions } from 'expo';
 
 export const asyncStorageDeck = "flashcards:decks";
 
-export const NOTIFICATION_KEY = 'notification:mobile-flashcards';
+export const notificationKey = 'notification:mobile-flashcards';
 
 let data = {
   React: {
@@ -34,11 +35,12 @@ let data = {
 
 export function initData() {
   AsyncStorage.setItem(asyncStorageDeck, JSON.stringify(data));
+  return data;
 }
 
 export function getDecks() {
   return AsyncStorage.getItem(asyncStorageDeck).then(results => {
-    return results;
+    return results === null ? initData() : JSON.parse(results);
   });
 }
 
@@ -50,17 +52,43 @@ export function addCardToDeck(title, card) {
   AsyncStorage.getItem(asyncStorageDeck, (err, result) => {
     let decks = JSON.parse(result);
 
-    AsyncStorage.merge(asyncStorageDeck, JSON.stringify({ [deckName]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) } }));
+    AsyncStorage.mergeItem(asyncStorageDeck, JSON.stringify({ [title]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) } }));
   });
 }
 
 export function buildNotification() {
   return {
     title: 'Flashcards',
-    body: "Questions today."
+    body: "Today's Questions."
   };
 }
 
 export function setNotification() {
+  AsyncStorage.getItem(notificationKey)
+    .then(JSON.parse)
+    .then(data => {
+      if (!data) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          if (status === 'granted') {
+            Notifications.cancelAllScheduledNotificationsAsync().then(() => {
+              let today = new Date();
+              today.setDate(today.getDate());
+              today.setHours(23, 0, 0);
+
+              const notification = buildNotification();
+
+              Notifications.scheduleLocalNotificationAsync(notification, {
+                time: today,
+                repeat: 'day'
+              }).then(result => {
+
+              });
+            });
+
+            AsyncStorage.setItem(notificationKey, JSON.stringify(true));
+          }
+        });
+      }
+    });
   return;
 }

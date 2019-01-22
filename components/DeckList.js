@@ -12,19 +12,22 @@ export default class DeckList extends Component {
 		decks: {}
 	}
 	componentDidMount() {
-		var data = getDecks();
-		var dataValues = Object.values(data);
-		this.setState({
-			decks: dataValues
-		});
+    var data = getDecks();
+    data.then(result => {
+      var values = Object.values(result);
+
+      this.setState({
+        decks: values
+      });
+    });
 	}
   render() {
 		return (
 			<View style={ styles.contentContainer } >
-				<FlatList contentContainerStyle={ styles.contentContainer } data={ this.state.decks }
-					renderItem={entry => { 
-						return (
-							<TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: entry })} key={ entry }>
+        <FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+					renderItem={entry => {
+            return (
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: entry })} key={entry.index}>
 								<View>
 									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
 									<Text style={{ color: 'black' }}>{entry.item.questions.length} Cards</Text>
@@ -42,6 +45,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	}
 });
