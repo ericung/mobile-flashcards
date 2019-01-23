@@ -2,29 +2,23 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { getDecks } from '../utils/api';
+import { addCardToDeck, saveDeckTitle } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class NewDeck extends Component {
 	state = {
-		decks: {}
+		title: ""
 	}
-	componentDidMount() {
-		var data = getDecks();
-		var dataValues = Object.values(data);
-		this.setState({
-			decks: dataValues
-		});
-	}
-	onClick() {
-		return;
+  onClick() {
+    saveDeckTitle(this.state.title);
+    this.props.navigation.navigate('Home');
 	}
 	render() {
 		return (
 			<View style={styles.contentContainer} >
         <Text>What is the title of your new deck?</Text>
-        <TextInput placeholder="Deck Title" />
+        <TextInput placeholder="Deck Title" onChangeText={(title) => this.setState({ title })} />
         <TouchableOpacity onPress={() => this.onClick()}>
           <View>
             <Text style={{ color: 'black' }}>Submit</Text>

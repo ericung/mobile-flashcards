@@ -4,7 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import DeckList from './components/DeckList';
 import DeckView from './components/DeckView';
 import CardView from './components/CardView';
-import NewDeck from './components/NewQuestion';
+import NewDeck from './components/NewDeck';
 import NewQuestion from './components/NewQuestion';
 import QuizView from './components/QuizView';
 import Percentage from './components/Percentage';

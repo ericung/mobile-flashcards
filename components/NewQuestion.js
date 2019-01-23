@@ -22,8 +22,8 @@ export default class NewQuestion extends Component {
 	}
 	render() {
 		return (
-			<View style={styles.contentContainer} >
-				<FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+      <View style={styles.contentContainer} >
+        <FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
 					renderItem={entry => {
 						return (
 							<TouchableOpacity onPress={entry => this.onClick()}>
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	}
 });
