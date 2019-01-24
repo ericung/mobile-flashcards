@@ -3,7 +3,7 @@ import { Notifications, Permissions } from 'expo';
 
 export const asyncStorageDeck = "flashcards:decks";
 
-export const notificationKey = 'notification:mobile-flashcards';
+export const NOTIFICATION_KEY = 'notification:mobile-flashcards';
 
 let data = {
   React: {
@@ -39,6 +39,7 @@ export function initData() {
 }
 
 export function getDecks() {
+  AsyncStorage.clear();
   return AsyncStorage.getItem(asyncStorageDeck).then(results => {
     return results === null ? initData() : JSON.parse(results);
   });
@@ -50,9 +51,10 @@ export function saveDeckTitle(title) {
 
 export function addCardToDeck(title, card) {
   AsyncStorage.getItem(asyncStorageDeck, (err, result) => {
+    console.log(result);
     let decks = JSON.parse(result);
-
-    AsyncStorage.mergeItem(asyncStorageDeck, JSON.stringify({ [title]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) } }));
+    console.log(asyncStorageDeck);
+    AsyncStorage.mergeItem(asyncStorageDeck, JSON.stringify({[title]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) }},card));
   });
 }
 
@@ -64,7 +66,7 @@ export function buildNotification() {
 }
 
 export function setNotification() {
-  AsyncStorage.getItem(notificationKey)
+  AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then(data => {
       if (!data) {
@@ -85,7 +87,7 @@ export function setNotification() {
               });
             });
 
-            AsyncStorage.setItem(notificationKey, JSON.stringify(true));
+            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
           }
         });
       }

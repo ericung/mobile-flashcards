@@ -67,7 +67,7 @@ export default class QuizView extends Component {
 	answerIncorrect() {
 		var index = this.state.index;
 		var entry = this.state.deck.item.questions[index];
-		if (entry.value === false) {
+    if (entry.value === false) {
 			this.setState({
 				index: this.state.index + 1,
 				correct: this.state.correct + 1,

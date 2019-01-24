@@ -8,18 +8,29 @@ import NewDeck from './components/NewDeck';
 import NewQuestion from './components/NewQuestion';
 import QuizView from './components/QuizView';
 import Percentage from './components/Percentage';
+import { getDecks } from './utils/api';
 
 export default class App extends Component {
   render() {
     return (
-			<Stack/>
+      <Stack/>
     );
   }
 }
 
+var data = getDecks();
+var deckData;
+data.then(result => {
+  var values = Object.values(result);
+  deckData = values;
+});
+
 const Stack = createStackNavigator({
 	Home: {
-		screen: DeckList
+    screen: DeckList,
+    navigationOptions: ({ }) => ({
+      deck: deckData
+    })
 	},
 	Deck: {
 		screen: DeckView
@@ -47,5 +58,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
-  },
+  }
 });

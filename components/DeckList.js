@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
-import { getDecks, initData } from '../utils/api';
+import { getDecks } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckList extends Component {
 	state = {
 		decks: {}
-	}
+  }
   componentDidMount() {
     var data = getDecks();
     data.then(result => {
@@ -18,8 +17,9 @@ export default class DeckList extends Component {
         decks: values
       });
     });
-	}
+  }
   render() {
+    var decks = (this.props.navigation.state.params === undefined) ? this.state.decks : this.props.navigation.state.params.decks;
 		return (
       <View style={styles.contentContainer} >
         <TouchableOpacity onPress={() => this.props.navigation.navigate('NewDeck')}>
@@ -27,7 +27,7 @@ export default class DeckList extends Component {
             <Text style={{ color: 'black' }}>New Deck</Text>
           </View>
         </TouchableOpacity>
-        <FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+        <FlatList contentContainerStyle={styles.contentContainer} data={decks}
           renderItem={entry => {
             return (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: entry })} key={entry.index}>

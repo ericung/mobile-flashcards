@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { addCardToDeck, saveDeckTitle } from '../utils/api';
+import { getDecks, addCardToDeck, saveDeckTitle } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
@@ -11,8 +11,15 @@ export default class NewDeck extends Component {
 		title: ""
 	}
   onClick() {
+    var data = getDecks();
+    var deckData;
+    data.then(result => {
+      var values = Object.values(result);
+      deckData = values;
+    });
+
     saveDeckTitle(this.state.title);
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Home', { decks: deckData });
 	}
 	render() {
 		return (
