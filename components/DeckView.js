@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { initData, getDecks } from '../utils/api';
+import { getDecks } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
@@ -11,13 +11,23 @@ export default class DeckView extends Component {
 		decks: {}
 	}
   componentDidMount() {
+		/*
 		var data = getDecks();
 		var dataValues = Object.values(data);
 		this.setState({
 			decks: dataValues
 		});
+		*/
 	}
 	render() {
+		var data = getDecks();
+		var deckData;
+		data.then(result => {
+			var values = Object.values(result);
+			console.log(values);
+			deckData = values;
+		});
+		console.log(deckData);
 		return (
       <View style={styles.contentContainer} >
 				<TouchableOpacity>
@@ -30,7 +40,7 @@ export default class DeckView extends Component {
 						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.questions.length} Cards</Text>
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { deck: this.props.navigation.state.params.deck })}>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { deck: deckData })}>
 					<View>
 						<Text style={{ color: 'black' }}>Add Card</Text>
 					</View>

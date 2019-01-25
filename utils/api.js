@@ -54,7 +54,7 @@ export function addCardToDeck(title, card) {
     console.log(result);
     let decks = JSON.parse(result);
     console.log(asyncStorageDeck);
-    AsyncStorage.mergeItem(asyncStorageDeck, JSON.stringify({[title]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) }},card));
+    AsyncStorage.mergeItem(asyncStorageDeck, JSON.stringify({[title]: { title: title, questions: JSON.parse(JSON.stringify(decks[title].questions)) }}));
   });
 }
 

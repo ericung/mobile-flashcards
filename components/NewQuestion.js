@@ -16,12 +16,13 @@ export default class NewQuestion extends Component {
 		this.setState({
 			decks: dataValues
 		});
+
 	}
 	onClick() {
 		return;
 	}
 	render() {
-		return (
+			return (
       <View style={styles.contentContainer} >
         <FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
 					renderItem={entry => {
