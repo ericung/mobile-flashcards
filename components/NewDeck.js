@@ -16,18 +16,10 @@ export default class NewDeck extends Component {
     var deckData ;
 		data.then(result => {
       var values = Object.values(result);
-      deckData = values;
+			this.props.navigation.navigate('Home', { decks: values });
     });
-		console.log(deckData);
-    this.props.navigation.navigate('Home', { decks: deckData });
 	}
 	render() {
-		var data = getDecks();
-    var deckData;
-    data.then(result => {
-      var values = Object.values(result);
-      deckData = values;
-    });
 		return (
 			<View style={styles.contentContainer} >
         <Text>What is the title of your new deck?</Text>

@@ -41,12 +41,14 @@ export function initData() {
 export function getDecks() {
   AsyncStorage.clear();
   return AsyncStorage.getItem(asyncStorageDeck).then(results => {
+		console.log(JSON.parse(results));
     return results === null ? initData() : JSON.parse(results);
   });
 }
 
 export function saveDeckTitle(title) {
-  return AsyncStorage.mergeItem(asyncStorageDeck, JSON.stringify({ title: title, questions: [] }));
+	data[title] = { title: title, questions: [] };
+	AsyncStorage.setItem(asyncStorageDeck, JSON.stringify(data));
 }
 
 export function addCardToDeck(title, card) {

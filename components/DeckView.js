@@ -11,23 +11,15 @@ export default class DeckView extends Component {
 		decks: {}
 	}
   componentDidMount() {
-		/*
 		var data = getDecks();
-		var dataValues = Object.values(data);
-		this.setState({
-			decks: dataValues
-		});
-		*/
+		data.then(result => {
+      var values = Object.values(result);
+      this.setState({
+        decks: values
+      });
+    });
 	}
 	render() {
-		var data = getDecks();
-		var deckData;
-		data.then(result => {
-			var values = Object.values(result);
-			console.log(values);
-			deckData = values;
-		});
-		console.log(deckData);
 		return (
       <View style={styles.contentContainer} >
 				<TouchableOpacity>
@@ -40,7 +32,7 @@ export default class DeckView extends Component {
 						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.questions.length} Cards</Text>
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { deck: deckData })}>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { deck: this.state.deckData })}>
 					<View>
 						<Text style={{ color: 'black' }}>Add Card</Text>
 					</View>

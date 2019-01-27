@@ -28,8 +28,8 @@ data.then(result => {
 const Stack = createStackNavigator({
 	Home: {
     screen: DeckList,
-    navigationOptions: ({ }) => ({
-      deck: deckData
+    navigationOptions: ({ navigation }) => ({
+      decks: deckData
     })
 	},
 	Deck: {
