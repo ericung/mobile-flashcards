@@ -15,7 +15,7 @@ export default class QuizView extends Component {
 		index: 0,
 		correct: this.props.navigation.state.params.correct,
 		incorrect: this.props.navigation.state.params.incorrect
-	}
+  }
 	switchDisplay() {
 		if (this.state.display === QuestionType) {
 			this.setState({
@@ -48,7 +48,6 @@ export default class QuizView extends Component {
 	answerIncorrect() {
 		var index = this.state.index;
     var entry = this.state.deck.item.questions[index];
-    console.log(entry);
 		if (entry.value === "false") {
 			this.setState({
 				index: this.state.index + 1,
@@ -66,7 +65,7 @@ export default class QuizView extends Component {
 	}
 	render() {
 		var index = this.state.index;
-		var entry;
+    var entry;
 		if (index < (this.state.deck.item.questions.length)) {
 			entry = this.state.deck.item.questions[index];
 		} else {

@@ -18,7 +18,14 @@ export default class DeckView extends Component {
         decks: values
       });
     });
-	}
+  }
+  onClick() {
+    if (this.props.navigation.state.params.deck.item.questions.length === 0) {
+      this.props.navigation.navigate('Percentage', { correct: 0, incorrect: 0 });
+    } else {
+      this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
+    }
+  }
 	render() {
 		return (
       <View style={styles.contentContainer} >
@@ -37,7 +44,7 @@ export default class DeckView extends Component {
 						<Text style={{ color: 'black' }}>Add Card</Text>
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 })}>
+      <TouchableOpacity onPress={() => this.onClick()}>
 					<View>
 						<Text style={{ color: 'black' }}>Start Quiz</Text>
 					</View>

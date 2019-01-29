@@ -25,8 +25,8 @@ export default class DeckView extends Component {
 		return (
 			<View style={styles.contentContainer} >
 				<TouchableOpacity onPress={entry => this.onClick()}>
-					<View>
-						<Text style={{ color: 'black' }}>{(correct / (correct + incorrect))*100}%</Text>
+          <View>
+            <Text style={{ color: 'black' }}>{(correct + incorrect === 0) ? 100 : (correct / (correct + incorrect)) * 100}%</Text>
 					</View>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
