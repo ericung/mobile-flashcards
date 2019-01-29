@@ -29,9 +29,8 @@ export default class QuizView extends Component {
 	}
 	answerCorrect() {
 		var index = this.state.index;
-		console.log(index);
 		var entry = this.state.deck.item.questions[index];
-		if (entry.value === true) {
+		if (entry.value === "true") {
 			this.setState({
 				index: this.state.index + 1,
 				correct: this.state.correct + 1,
@@ -48,8 +47,9 @@ export default class QuizView extends Component {
 	}
 	answerIncorrect() {
 		var index = this.state.index;
-		var entry = this.state.deck.item.questions[index];
-		if (entry.value === true) {
+    var entry = this.state.deck.item.questions[index];
+    console.log(entry);
+		if (entry.value === "false") {
 			this.setState({
 				index: this.state.index + 1,
 				correct: this.state.correct + 1,
@@ -63,25 +63,6 @@ export default class QuizView extends Component {
 			});
 		}
 		return;	
-	}
-	answerIncorrect() {
-		var index = this.state.index;
-		var entry = this.state.deck.item.questions[index];
-    if (entry.value === false) {
-			this.setState({
-				index: this.state.index + 1,
-				correct: this.state.correct + 1,
-				incorrect: this.state.incorrect
-			});
-		} else {
-			this.setState({
-				index: this.state.index + 1,
-				correct: this.state.correct,
-				incorrect: this.state.incorrect + 1
-			});
-		}
-
-		return;
 	}
 	render() {
 		var index = this.state.index;
