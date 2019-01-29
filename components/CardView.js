@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Divider } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
 import { addCardToDeck } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
@@ -12,8 +10,8 @@ export default class CardView extends Component {
 		answer: '',
 		value: ''
 	}
-	onClick() {
-		addCardToDeck(this.props.navigation.state.params.deck.item.title, { question: this.state.question, answer: this.state.answer, value: this.state.value });
+  onClick() {
+    addCardToDeck(this.props.navigation.state.params.deck.item.title, { question: this.state.question, answer: this.state.answer, value: this.state.value });
 		this.props.navigation.navigate('Home', { deck: this.props.navigation.state.params.deck.item.title });
 		return;
 	}
@@ -38,6 +36,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	}
 });

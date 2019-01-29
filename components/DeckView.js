@@ -31,8 +31,8 @@ export default class DeckView extends Component {
 					<View>
 						<Text style={{ color: 'black' }}>{this.props.navigation.state.params.deck.item.questions.length} Cards</Text>
 					</View>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { deck: this.state.deckData })}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { deck: this.props.navigation.state.params.deck })}>
 					<View>
 						<Text style={{ color: 'black' }}>Add Card</Text>
 					</View>
