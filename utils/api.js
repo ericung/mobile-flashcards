@@ -56,11 +56,25 @@ export function addCardToDeck(title, card) {
   AsyncStorage.setItem(asyncStorageDeck, JSON.stringify(data));
 }
 
-export function buildNotification() {
+export function createNotification() {
   return {
     title: 'Flashcards',
-    body: "Today's Questions."
+    body: "Today's Questions.",
+    ios: {
+      sound: true
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate
+    }
   };
+}
+
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync);
 }
 
 export function setNotification() {
