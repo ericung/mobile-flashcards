@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
-import { getDecks } from '../utils/api';
+import { clearLocalNotification, setLocalNotification } from '../utils/api';
 
 const QuestionType = "QuestionType";
 const AnswerType = "AnswerType";
@@ -15,6 +13,9 @@ export default class QuizView extends Component {
 		index: 0,
 		correct: this.props.navigation.state.params.correct,
 		incorrect: this.props.navigation.state.params.incorrect
+  }
+  componentDidMount() {
+    clearLocalNotification().then(setLocalNotification);
   }
 	switchDisplay() {
 		if (this.state.display === QuestionType) {

@@ -12,12 +12,12 @@ let data = {
       {
         question: 'What is React?',
         answer: 'A library for managing user interfaces',
-        value: true
+        value: "true"
       },
       {
         question: 'Where do you make Ajax requests in React?',
         answer: 'The componentDidMount lifecycle event',
-        value: false
+        value: "false"
       }
     ]
   },
@@ -27,7 +27,7 @@ let data = {
       {
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.',
-        value: true
+        value: "true"
       }
     ]
   }
@@ -84,20 +84,20 @@ export function setNotification() {
       if (!data) {
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
           if (status === 'granted') {
-            Notifications.cancelAllScheduledNotificationsAsync().then(() => {
-              let today = new Date();
-              today.setDate(today.getDate());
-              today.setHours(23, 0, 0);
+            Notifications.cancelAllScheduledNotificationsAsync();
 
-              const notification = buildNotification();
+            let tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(20);
+            tomorrow.setMinutes(0);
 
-              Notifications.scheduleLocalNotificationAsync(notification, {
-                time: today,
+            Notifications.scheduleLocalNotificationAsync(
+              createNotification(),
+              {
+                time: tomorrow,
                 repeat: 'day'
-              }).then(result => {
-
-              });
-            });
+              }
+            );
 
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
           }
