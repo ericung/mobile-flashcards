@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
-import { clearLocalNotification, setLocalNotification } from '../utils/api';
 
 const QuestionType = "QuestionType";
 const AnswerType = "AnswerType";
@@ -13,9 +12,6 @@ export default class QuizView extends Component {
 		index: 0,
 		correct: this.props.navigation.state.params.correct,
 		incorrect: this.props.navigation.state.params.incorrect
-  }
-  componentDidMount() {
-    clearLocalNotification().then(setLocalNotification);
   }
 	switchDisplay() {
 		if (this.state.display === QuestionType) {
@@ -30,7 +26,8 @@ export default class QuizView extends Component {
 	}
 	answerCorrect() {
 		var index = this.state.index;
-		var entry = this.state.deck.item.questions[index];
+    var entry = this.state.deck.item.questions[index];
+    console.log(entry);
 		if (entry.value === "true") {
 			this.setState({
 				index: this.state.index + 1,

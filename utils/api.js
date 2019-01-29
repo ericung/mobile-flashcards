@@ -87,14 +87,22 @@ export function setNotification() {
             Notifications.cancelAllScheduledNotificationsAsync();
 
             let tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
+            /*
+            tomorrow.setDate(tomorrow.getDate());
             tomorrow.setHours(20);
             tomorrow.setMinutes(0);
+            */
+            tomorrow.setDate(tomorrow.getDate());
+            tomorrow.setMinutes(1);
+            /*
+            tomorrow.setHours(20);
+            tomorrow.setMinutes
+            */
 
             Notifications.scheduleLocalNotificationAsync(
               createNotification(),
               {
-                time: tomorrow,
+                time: now,
                 repeat: 'day'
               }
             );
