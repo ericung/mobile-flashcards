@@ -10,9 +10,6 @@ export default class DeckList extends Component {
 	state = {
 		decks: {}
   }
-  componentDidMount() {
-    clearLocalNotification().then(setLocalNotification);
-	}
 	render() {
 		var data = getDecks();
 		data.then(result => {

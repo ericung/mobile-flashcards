@@ -15,14 +15,17 @@ export default class DeckView extends Component {
 		});
 		clearLocalNotification().then(setNotification);
 	}
-	onClick() {
+	onRestart() {
 		if (this.props.navigation.state.params.deck.item.questions.length === 0) {
       this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
     } else {
       this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
     }
 		return;
-	}
+  }
+  onBackToDeck() {
+    this.props.navigation.navigate('Deck', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
+  }
 	render() {
 		var correct = this.props.navigation.state.params.correct;
 		var incorrect = this.props.navigation.state.params.incorrect;
@@ -38,11 +41,16 @@ export default class DeckView extends Component {
 						<Text style={{ color: 'black' }}>Home</Text>
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.onClick()}>
+				<TouchableOpacity onPress={() => this.onRestart()}>
 					<View>
 						<Text style={{ color: 'black' }}>Restart</Text>
 					</View>
-				</TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.onBackToDeck()}>
+          <View>
+            <Text style={{ color: 'black' }}>Back To Deck</Text>
+          </View>
+        </TouchableOpacity>
 			</View>
 		);
 	}

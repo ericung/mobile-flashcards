@@ -14,17 +14,20 @@ export default class NewDeck extends Component {
     saveDeckTitle(this.state.title);
 		var data = getDecks();
 		var title = this.state.title;
-    var deckData ;
 		data.then(result => {
-      var values = Object.values(result);
 			this.props.navigation.navigate('Deck', { deck: { "item": { "title": title, "questions": [] }}});
     });
-	}
+  }
+  handleInputChange(title) {
+    this.setState({
+      title: title
+    });
+  }
 	render() {
 		return (
 			<View style={styles.contentContainer} >
         <Text>What is the title of your new deck?</Text>
-        <TextInput placeholder="Deck Title" onChangeText={(title) => this.setState({ title })} />
+        <TextInput placeholder="Deck Title" onChangeText={(title) => this.handleInputChange(title)} />
         <TouchableOpacity onPress={() => this.onClick()}>
           <View>
             <Text style={{ color: 'black' }}>Submit</Text>
