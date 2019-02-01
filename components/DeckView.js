@@ -7,19 +7,8 @@ import { getDecks } from '../utils/api';
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckView extends Component {
-	state = {
-		decks: {}
-	}
-  componentDidMount() {
-		var data = getDecks();
-		data.then(result => {
-      var values = Object.values(result);
-      this.setState({
-        decks: values
-      });
-    });
-  }
-  onClick() {
+	onClick() {
+		console.log(this.props.navigation.state.params.deck);
     if (this.props.navigation.state.params.deck.item.questions.length === 0) {
       this.props.navigation.navigate('Percentage', { correct: 0, incorrect: 0 });
     } else {

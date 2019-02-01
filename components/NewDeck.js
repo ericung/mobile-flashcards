@@ -13,10 +13,11 @@ export default class NewDeck extends Component {
   onClick() {
     saveDeckTitle(this.state.title);
 		var data = getDecks();
+		var title = this.state.title;
     var deckData ;
 		data.then(result => {
       var values = Object.values(result);
-			this.props.navigation.navigate('Home', { decks: values });
+			this.props.navigation.navigate('Deck', { deck: { "item": { "title": title, "questions": [] }}});
     });
 	}
 	render() {
