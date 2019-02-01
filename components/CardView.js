@@ -12,8 +12,7 @@ export default class CardView extends Component {
 	}
   onClick() {
     addCardToDeck(this.props.navigation.state.params.deck.item.title, { question: this.state.question, answer: this.state.answer, value: this.state.value });
-		this.props.navigation.navigate('Home', { deck: this.props.navigation.state.params.deck.item.title });
-		return;
+		this.props.navigation.navigate('Home');
 	}
 	render() {
 		return (

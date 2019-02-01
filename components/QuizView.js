@@ -40,7 +40,7 @@ export default class QuizView extends Component {
 					correct: 0,
 					incorrect: 0
 				});
-				this.props.navigation.navigate('Percentage', { correct: this.state.correct+1, incorrect: this.state.incorrect });
+				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct+1, incorrect: this.state.incorrect });
 			}
 		} else {
 			this.setState({
@@ -54,7 +54,7 @@ export default class QuizView extends Component {
 					correct: 0,
 					incorrect: 0
 				});
-				this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect+1 });
+				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct, incorrect: this.state.incorrect+1 });
 			}
 		}
 	}

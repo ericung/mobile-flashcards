@@ -7,8 +7,6 @@ import { getDecks, clearLocalNotification, setNotification } from '../utils/api'
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckView extends Component {
-	state = {
-	}
 	componentDidMount() {
 		var data = getDecks();
 		var dataValues = Object.values(data);
