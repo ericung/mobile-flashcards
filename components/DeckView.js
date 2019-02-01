@@ -8,9 +8,8 @@ export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckView extends Component {
 	onClick() {
-		console.log(this.props.navigation.state.params.deck);
     if (this.props.navigation.state.params.deck.item.questions.length === 0) {
-      this.props.navigation.navigate('Percentage', { correct: 0, incorrect: 0 });
+      this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: 0, incorrect: 0 });
     } else {
       this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
     }

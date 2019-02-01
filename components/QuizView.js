@@ -25,8 +25,6 @@ export default class QuizView extends Component {
 			});
 		}
 	}
-	componentDidMount() {
-	}
 	answerCorrect() {
 		var index = this.state.index;
     var entry = this.state.deck.item.questions[index];
@@ -36,7 +34,12 @@ export default class QuizView extends Component {
 				correct: this.state.correct + 1,
 				incorrect: this.state.incorrect
 			});
-			if ((index+1) >= this.state.deck.item.questions.length) {
+			if ((index + 1) >= this.state.deck.item.questions.length) {
+				this.setState({
+					index: 0,
+					correct: 0,
+					incorrect: 0
+				});
 				this.props.navigation.navigate('Percentage', { correct: this.state.correct+1, incorrect: this.state.incorrect });
 			}
 		} else {
@@ -46,6 +49,11 @@ export default class QuizView extends Component {
 				incorrect: this.state.incorrect + 1
 			});
 			if ((index+1) >= this.state.deck.item.questions.length) {
+				this.setState({
+					index: 0,
+					correct: 0,
+					incorrect: 0
+				});
 				this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect+1 });
 			}
 		}
@@ -59,8 +67,13 @@ export default class QuizView extends Component {
 				correct: this.state.correct + 1,
 				incorrect: this.state.incorrect
 			});
-			if ((index+1) >= this.state.deck.item.questions.length) {
-				this.props.navigation.navigate('Percentage', { correct: this.state.correct+1, incorrect: this.state.incorrect });
+			if ((index + 1) >= this.state.deck.item.questions.length) {
+				this.setState({
+					index: 0,
+					correct: 0,
+					incorrect: 0
+				});
+				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct + 1, incorrect: this.state.incorrect });
 			}
 		} else {
 			this.setState({
@@ -68,8 +81,13 @@ export default class QuizView extends Component {
 				correct: this.state.correct,
 				incorrect: this.state.incorrect + 1
 			});
-			if ((index+1) >= this.state.deck.item.questions.length) {
-				this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect+1 });
+			if ((index + 1) >= this.state.deck.item.questions.length) {
+				this.setState({
+					index: 0,
+					correct: 0,
+					incorrect: 0
+				});
+				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct, incorrect: this.state.incorrect + 1 });
 			}
 		}
 	}

@@ -18,6 +18,11 @@ export default class DeckView extends Component {
 		clearLocalNotification().then(setNotification);
 	}
 	onClick() {
+		if (this.props.navigation.state.params.deck.item.questions.length === 0) {
+      this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
+    } else {
+      this.props.navigation.navigate('Quiz', { deck: this.props.navigation.state.params.deck, index: 0, correct: 0, incorrect: 0 });
+    }
 		return;
 	}
 	render() {
@@ -33,6 +38,11 @@ export default class DeckView extends Component {
 				<TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
 					<View>
 						<Text style={{ color: 'black' }}>Home</Text>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={() => this.onClick()}>
+					<View>
+						<Text style={{ color: 'black' }}>Restart</Text>
 					</View>
 				</TouchableOpacity>
 			</View>
