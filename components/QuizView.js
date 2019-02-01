@@ -11,7 +11,8 @@ export default class QuizView extends Component {
 		deck: this.props.navigation.state.params.deck,
 		index: 0,
 		correct: this.props.navigation.state.params.correct,
-		incorrect: this.props.navigation.state.params.incorrect
+		incorrect: this.props.navigation.state.params.incorrect,
+		entry: undefined
   }
 	switchDisplay() {
 		if (this.state.display === QuestionType) {
@@ -24,24 +25,30 @@ export default class QuizView extends Component {
 			});
 		}
 	}
+	componentDidMount() {
+	}
 	answerCorrect() {
 		var index = this.state.index;
     var entry = this.state.deck.item.questions[index];
-    console.log(entry);
 		if (entry.value === "true") {
 			this.setState({
 				index: this.state.index + 1,
 				correct: this.state.correct + 1,
 				incorrect: this.state.incorrect
 			});
+			if ((index+1) >= this.state.deck.item.questions.length) {
+				this.props.navigation.navigate('Percentage', { correct: this.state.correct+1, incorrect: this.state.incorrect });
+			}
 		} else {
 			this.setState({
 				index: this.state.index + 1,
 				correct: this.state.correct,
 				incorrect: this.state.incorrect + 1
 			});
+			if ((index+1) >= this.state.deck.item.questions.length) {
+				this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect+1 });
+			}
 		}
-		return;	
 	}
 	answerIncorrect() {
 		var index = this.state.index;
@@ -52,14 +59,19 @@ export default class QuizView extends Component {
 				correct: this.state.correct + 1,
 				incorrect: this.state.incorrect
 			});
+			if ((index+1) >= this.state.deck.item.questions.length) {
+				this.props.navigation.navigate('Percentage', { correct: this.state.correct+1, incorrect: this.state.incorrect });
+			}
 		} else {
 			this.setState({
 				index: this.state.index + 1,
 				correct: this.state.correct,
 				incorrect: this.state.incorrect + 1
 			});
+			if ((index+1) >= this.state.deck.item.questions.length) {
+				this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect+1 });
+			}
 		}
-		return;	
 	}
 	render() {
 		var index = this.state.index;
@@ -67,7 +79,6 @@ export default class QuizView extends Component {
 		if (index < (this.state.deck.item.questions.length)) {
 			entry = this.state.deck.item.questions[index];
 		} else {
-			this.props.navigation.navigate('Percentage', { correct: this.state.correct, incorrect: this.state.incorrect });
 			entry = this.state.deck.item.questions[this.state.deck.item.questions.length - 1];
 		}
 		return (
@@ -76,9 +87,9 @@ export default class QuizView extends Component {
 					<View>
 						{
 							(this.state.display === QuestionType) ?
-								<Text style={{ color: 'black' }}>{entry.question}</Text>
+								<Text style={{ color: 'black' }}>{entry === undefined ? "none" : entry.question }</Text>
 								:
-								<Text style={{ color: 'black' }}>{entry.answer}</Text>
+								<Text style={{ color: 'black' }}>{entry === undefined ? "none" : entry.answer}</Text>
 						}
 					</View>
 					<TouchableOpacity onPress={entry => this.switchDisplay()}>

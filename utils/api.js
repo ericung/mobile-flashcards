@@ -41,7 +41,6 @@ export function initData() {
 export function getDecks() {
   AsyncStorage.clear();
   return AsyncStorage.getItem(asyncStorageDeck).then(results => {
-		console.log(JSON.parse(results));
     return results === null ? initData() : JSON.parse(results);
   });
 }
@@ -67,7 +66,7 @@ export function createNotification() {
       sound: true,
       priority: 'high',
       sticky: false,
-      vibrate
+      vibrate: true
     }
   };
 }
@@ -86,23 +85,15 @@ export function setNotification() {
           if (status === 'granted') {
             Notifications.cancelAllScheduledNotificationsAsync();
 
-            let tomorrow = new Date();
-            /*
-            tomorrow.setDate(tomorrow.getDate());
-            tomorrow.setHours(20);
-            tomorrow.setMinutes(0);
-            */
-            tomorrow.setDate(tomorrow.getDate());
-            tomorrow.setMinutes(1);
-            /*
-            tomorrow.setHours(20);
-            tomorrow.setMinutes
-            */
-
+						let tomorrow = new Date();
+						tomorrow.setDate(tomorrow.getDate() + 1);
+						tomorrow.setMinutes(20);
+						tomorrow.setMinutes(0);
+						          
             Notifications.scheduleLocalNotificationAsync(
               createNotification(),
-              {
-                time: now,
+							{
+								time: tomorrow,
                 repeat: 'day'
               }
             );

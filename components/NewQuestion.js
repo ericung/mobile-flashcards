@@ -17,16 +17,13 @@ export default class NewQuestion extends Component {
 			decks: dataValues
 		});
 	}
-	onClick() {
-		return;
-	}
 	render() {
 			return (
       <View style={ styles.contentContainer } >
         <FlatList contentContainerStyle={ styles.contentContainer } data={ this.state.decks }
 					renderItem={entry => {
 						return (
-							<TouchableOpacity onPress={entry => this.onClick()}>
+							<TouchableOpacity>
 								<View>
 									<Text style={{ color: 'black' }}>{entry.item.title}</Text>
 									<Text style={{ color: 'black' }}>{entry.item.questions.length}</Text>

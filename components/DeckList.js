@@ -12,7 +12,7 @@ export default class DeckList extends Component {
   }
   componentDidMount() {
     clearLocalNotification().then(setLocalNotification);
-  }
+	}
 	render() {
 		var data = getDecks();
 		data.then(result => {
@@ -28,9 +28,9 @@ export default class DeckList extends Component {
             <Text style={{ color: 'black' }}>New Deck</Text>
           </View>
         </TouchableOpacity>
-          <FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+				<FlatList contentContainerStyle={styles.contentContainer} data={this.state.decks}
+					keyExtractor={(item, index) => index.toString()}
           renderItem={entry => {
-            console.log(entry);
             return (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: entry })} key={entry.index}>
                 <View>

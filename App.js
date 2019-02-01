@@ -8,9 +8,13 @@ import NewDeck from './components/NewDeck';
 import NewQuestion from './components/NewQuestion';
 import QuizView from './components/QuizView';
 import Percentage from './components/Percentage';
-import { getDecks } from './utils/api';
+import { getDecks, setNotification } from './utils/api';
 
 export default class App extends Component {
+	componentDidMount() {
+		setNotification();
+	}
+
   render() {
     return (
       <Stack/>
@@ -22,7 +26,7 @@ var data = getDecks();
 var deckData;
 data.then(result => {
   var values = Object.values(result);
-  deckData = values;
+	deckData = values;
 });
 
 const Stack = createStackNavigator({

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AsyncStorage } from 'react-native';
-import { getDecks } from '../utils/api';
+import { getDecks, clearLocalNotification, setNotification } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
@@ -15,6 +15,7 @@ export default class DeckView extends Component {
 		this.setState({
 			decks: dataValues
 		});
+		clearLocalNotification().then(setNotification);
 	}
 	onClick() {
 		return;
