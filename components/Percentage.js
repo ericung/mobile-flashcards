@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
-import { getDecks, clearLocalNotification, setNotification } from '../utils/api';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { getDecks } from '../utils/api';
+
 
 export const asyncStorageDeck = "flashcards:decks";
 
 export default class DeckView extends Component {
+  state = {
+    decks: {}
+  }
 	componentDidMount() {
 		var data = getDecks();
 		var dataValues = Object.values(data);
-		this.setState({
-			decks: dataValues
-		});
-		clearLocalNotification().then(setNotification);
+    this.setState({
+      decks: dataValues
+    });
 	}
 	onRestart() {
 		if (this.props.navigation.state.params.deck.item.questions.length === 0) {

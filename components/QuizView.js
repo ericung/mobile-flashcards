@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Divider } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { clearLocalNotification, setNotification } from '../utils/api';
 
 const QuestionType = "QuestionType";
 const AnswerType = "AnswerType";
@@ -25,71 +26,38 @@ export default class QuizView extends Component {
 			});
 		}
 	}
-	answerCorrect() {
-		var index = this.state.index;
-    var entry = this.state.deck.item.questions[index];
-		if (entry.value === "true") {
-			this.setState({
-				index: this.state.index + 1,
-				correct: this.state.correct + 1,
-				incorrect: this.state.incorrect
-			});
-			if ((index + 1) >= this.state.deck.item.questions.length) {
-				this.setState({
-					index: 0,
-					correct: 0,
-					incorrect: 0
-				});
-				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct+1, incorrect: this.state.incorrect });
-			}
-		} else {
-			this.setState({
-				index: this.state.index + 1,
-				correct: this.state.correct,
-				incorrect: this.state.incorrect + 1
-			});
-			if ((index+1) >= this.state.deck.item.questions.length) {
-				this.setState({
-					index: 0,
-					correct: 0,
-					incorrect: 0
-				});
-				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct, incorrect: this.state.incorrect+1 });
-			}
-		}
+  answerCorrect() {
+    var index = this.state.index;
+		this.setState({
+			index: this.state.index + 1,
+			correct: this.state.correct + 1,
+			incorrect: this.state.incorrect
+    });
+    if ((index + 1) >= this.state.deck.item.questions.length) {
+      this.setState({
+        index: 0,
+        correct: 0,
+        incorrect: 0
+      });
+      this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct + 1, incorrect: this.state.incorrect });
+    }
 	}
-	answerIncorrect() {
-		var index = this.state.index;
-    var entry = this.state.deck.item.questions[index];
-		if (entry.value === "false") {
-			this.setState({
-				index: this.state.index + 1,
-				correct: this.state.correct + 1,
-				incorrect: this.state.incorrect
-			});
-			if ((index + 1) >= this.state.deck.item.questions.length) {
-				this.setState({
-					index: 0,
-					correct: 0,
-					incorrect: 0
-				});
-				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct + 1, incorrect: this.state.incorrect });
-			}
-		} else {
-			this.setState({
-				index: this.state.index + 1,
-				correct: this.state.correct,
-				incorrect: this.state.incorrect + 1
-			});
-			if ((index + 1) >= this.state.deck.item.questions.length) {
-				this.setState({
-					index: 0,
-					correct: 0,
-					incorrect: 0
-				});
-				this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct, incorrect: this.state.incorrect + 1 });
-			}
-		}
+  answerIncorrect() {
+    var index = this.state.index;
+		this.setState({
+			index: this.state.index + 1,
+			correct: this.state.correct,
+			incorrect: this.state.incorrect + 1
+		});
+    if ((index + 1) >= this.state.deck.item.questions.length) {
+      clearLocalNotification().then(setNotification);
+      this.setState({
+        index: 0,
+        correct: 0,
+        incorrect: 0
+      });
+      this.props.navigation.navigate('Percentage', { deck: this.props.navigation.state.params.deck, correct: this.state.correct, incorrect: this.state.incorrect + 1 });
+    }
 	}
 	render() {
 		var index = this.state.index;

@@ -7,11 +7,10 @@ export const asyncStorageDeck = "flashcards:decks";
 export default class CardView extends Component {
 	state = {
 		question: '',
-		answer: '',
-		value: ''
+		answer: ''
 	}
   onClick() {
-    addCardToDeck(this.props.navigation.state.params.deck.item.title, { question: this.state.question, answer: this.state.answer, value: this.state.value });
+    addCardToDeck(this.props.navigation.state.params.deck.item.title, { question: this.state.question, answer: this.state.answer });
 		this.props.navigation.navigate('Home');
 	}
 	render() {
@@ -19,7 +18,6 @@ export default class CardView extends Component {
 			<View style={styles.contentContainer} >
 				<TextInput placeholder="Question" onChangeText={(question) => this.setState({ question })} />
 				<TextInput placeholder="Answer" onChangeText={(answer) => this.setState({ answer })} />
-				<TextInput placeholder="Value" onChangeText={(value) => this.setState({ value })} />
 				<TouchableOpacity onPress={entry => this.onClick()}>
 					<View>
 						<Text style={{ color: 'black' }} onPress={ entry => this.onClick() }>Submit</Text>

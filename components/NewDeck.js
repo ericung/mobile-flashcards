@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
-import { getDecks, addCardToDeck, saveDeckTitle } from '../utils/api';
+import { getDecks, saveDeckTitle } from '../utils/api';
 
 export const asyncStorageDeck = "flashcards:decks";
 
